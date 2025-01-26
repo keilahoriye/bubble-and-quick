@@ -1,14 +1,17 @@
-#Bubble and Quick
-Neste trabalho da faculdade o objetivo é comparar os métodos de ordenação Bubblesort e Quicksort.
-O contexto é um restaurante britânico que precisa ordenar os pratos do cardápio.
+# Bubble and Quick
 
-Desafios:
-O método escolhido pelo restaurante precisa ordenar até 300.000 pratos. Por isso, é importante que seja utilizado o método mais eficiente.
+Este trabalho da faculdade tem como objetivo comparar os métodos de ordenação **Bubblesort** e **Quicksort**.
 
-Detalhes:
-A ordenação deve ser de acordo com a prioridade e o tempo de preparo de cada prato.
-Nenhum prato tem a mesma prioridade e tempo de preparo, então não é necessário lidar com empates.
-O nome de cada prato deve ter no máximo 50 caracteres, sem espaço.
+### Contexto
+O cenário envolve um restaurante britânico que precisa ordenar os pratos do cardápio de acordo com certos critérios.
 
-Relatório:
-Precisa comparar a eficiência dos métodos e explicar sobre a escolha de pivôs no Quicksort.
+## Desafios
+O método escolhido pelo restaurante precisa ser capaz de ordenar até **300.000 pratos**. Por isso, é importante utilizar o método mais eficiente.
+  
+## Detalhes
+- A ordenação deve ser feita com base na **prioridade** e no **tempo de preparo** de cada prato.
+- Não há pratos com a mesma prioridade ou tempo de preparo, portanto, não há necessidade de lidar com empates.
+- O nome de cada prato deve ter **no máximo 50 caracteres**, sem espaços.
+
+## Relatório
+- O relatório precisa comparar a eficiência dos dois métodos e explicar a escolha dos pivôs no Quicksort.
