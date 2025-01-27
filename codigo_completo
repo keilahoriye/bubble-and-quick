@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_NOME 50
+#define NUM_PRATOS 300000
+#define MAX_PALAVRAS 20
+
+char *adjetivos[] = {
+  "fish", "steak", "chicken", "beef", "lamb", "pork", "bubble", "shepherd", "roast", "grilled", "fried", "bangers", "toad", "sausage", "cottage", "mint", "apple", "pie", "ale", "and"
+};
+
+char *pratos[] = {
+  "chips", "soup", "pie", "pudding", "sandwich", "curry", "stew", "burger", "salad", "tart", "wrap", "bake", "roast", "wrap", "kebab", "sandwich", "mash", "toast", "sausage", "pasty"
+};
+
+typedef struct {
+  int prioridade;
+  int tempo;
+  char nome[MAX_NOME];
+} Prato;
+
+int comparar(void *a, void *b) {
+  Prato *pratoA = (Prato *)a;
+  Prato *pratoB = (Prato *)b;
+
+  if (pratoA->prioridade != pratoB->prioridade) {
+      return pratoB->prioridade - pratoA->prioridade;
+  }
+  return pratoA->tempo - pratoB->tempo;
+}
+
+void Bolha (Prato *v, int n) {
+  int i, j;
+  Prato aux;
+  for (i = 0; i < n - 1; i++) {
+    for (j = 1; j < n - i; j++) {
+      if (comparar(&v[j], &v[j - 1]) < 0) {
+        aux = v[j];
+        v[j] = v[j-1];
+        v[j-1] = aux;
+      }
+    }
+  }
+}
+
+void QuickSort (Prato *v, int n) {
+  QuickSort_ordena (v, 0, n - 1) ;
+}
+
+void QuickSort_ordena (Prato *v, int esq, int dir) {
+  int i, j ;
+  QuickSort_particao (v, esq, dir, &i, &j);
+  if (esq < j) QuickSort_ordena (v, esq, j);
+  if (i < dir) QuickSort_ordena (v, i, dir);
+}
+
+void QuickSort_particao (Prato *v, int esq, int dir, int *i, int *j) {
+  Prato pivo, aux;
+  *i = esq;
+  *j = dir;
+  pivo = v[(*i + *j) / 2];
+  do {
+    while (comparar(&v[*i], &pivo) < 0) (*i)++;
+    while (comparar(&v[*j], &pivo) > 0) (*j)--;
+    if (*i <= *j) {
+      aux = v[*i];
+      v[*i] = v[*j];
+      v[*j] = aux ;
+      (*i)++;
+      (*j)--;
+    }
+  } while (*i <= *j );
+}
+
+void gerarNomePrato(char *nome) {
+  int adjetivoIndex1 = rand() % (sizeof(adjetivos) / sizeof(adjetivos[0]));
+  int pratoIndex1 = rand() % (sizeof(pratos) / sizeof(pratos[0]));
+    
+  snprintf(nome, MAX_NOME, "%s-and-%s", adjetivos[adjetivoIndex1], pratos[pratoIndex1]);
+}
+
+int main() {
+  srand(time(NULL));
+
+  Prato pratos[NUM_PRATOS];
+    
+  for (int i = 0; i < NUM_PRATOS; i++) {
+    pratos[i].prioridade = rand() % 300000;
+    pratos[i].tempo = rand() % 1000;
+    gerarNomePrato(pratos[i].nome);
+  }
+
+  clock_t start = clock();
+    QuickSort(pratos, NUM_PRATOS);
+    clock_t end = clock();
+    double quickSortTime = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("Tempo de execução do QuickSort: %f segundos\n", quickSortTime);
+
+  start = clock();
+    Bolha(pratos, NUM_PRATOS);
+    end = clock();
+    double bubbleSortTime = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("Tempo de execução do BubbleSort: %f segundos\n", bubbleSortTime);
+
+    return 0;
+}
