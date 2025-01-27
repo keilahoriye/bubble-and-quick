@@ -7,7 +7,7 @@
 #define MAX_PALAVRAS 20
 
 char *adjetivos[] = {
-  "fish", "steak", "chicken", "beef", "lamb", "pork", "bubble", "shepherd", "roast", "grilled", "fried", "bangers", "toad", "sausage", "cottage", "mint", "apple", "pie", "ale", "and"
+  "fish", "steak", "chicken", "beef", "lamb", "pork", "bubble", "shepherd", "roast", "grilled", "fried", "bangers", "toad", "sausage", "cottage", "mint", "apple", "pie", "ale", "spicy"
 };
 
 char *pratos[] = {
@@ -25,7 +25,7 @@ int comparar(void *a, void *b) {
   Prato *pratoB = (Prato *)b;
 
   if (pratoA->prioridade != pratoB->prioridade) {
-      return pratoB->prioridade - pratoA->prioridade;
+      return pratoA->prioridade - pratoB->prioridade;
   }
   return pratoA->tempo - pratoB->tempo;
 }
@@ -97,11 +97,21 @@ int main() {
     double quickSortTime = (double)(end - start) / CLOCKS_PER_SEC;
     printf("Tempo de execução do QuickSort: %f segundos\n", quickSortTime);
 
+  printf("\nPratos ordenados pelo QuickSort:\n");
+  for (int i = 0; i < NUM_PRATOS; i++) {
+    printf("%s | Prioridade: %d | Tempo de preparo: %d\n", pratos[i].nome, pratos[i].prioridade, pratos[i].tempo);
+  }
+
   start = clock();
     Bolha(pratos, NUM_PRATOS);
     end = clock();
     double bubbleSortTime = (double)(end - start) / CLOCKS_PER_SEC;
     printf("Tempo de execução do BubbleSort: %f segundos\n", bubbleSortTime);
+
+  printf("\nPratos ordenados pelo BubbleSort:\n");
+  for (int i = 0; i < NUM_PRATOS; i++) {
+    printf("%s | Prioridade: %d | Tempo de preparo: %d\n", pratos[i].nome, pratos[i].prioridade, pratos[i].tempo);
+  }
 
     return 0;
 }
